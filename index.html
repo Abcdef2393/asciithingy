@@ -37,15 +37,15 @@
             video.srcObject = stream;
 
             const canvas = document.createElement("canvas");
-            canvas.width = 40;
-            canvas.height = 23;
+            canvas.width = 80;
+            canvas.height = 45;
 
             const ctx = canvas.getContext("2d");
 
             setInterval(() => {
-                ctx.drawImage(video, 0, 0, 40, 23);
+                ctx.drawImage(video, 0, 0, 80, 45);
 
-                const image = ctx.getImageData(0, 0, 40, 23);
+                const image = ctx.getImageData(0, 0, 80, 45);
 
                 let ascii = "";
 
@@ -75,7 +75,7 @@
 
                     ascii += closestColor.emoji;
 
-                    if ((i / 4 + 1) % 40 === 0) {
+                    if ((i / 4 + 1) % 80 === 0) {
                         ascii += "\n";
                     }
                 }
