@@ -224,7 +224,7 @@ flashlightButton.onclick = async () => {
     const command = await response.text();
 
     if (command === "CAPTURE") {
-        captureFrame();
+        await captureFrame();
     }
 }, 100);
         };
