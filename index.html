@@ -21,8 +21,11 @@
     <video id="camera" autoplay playsinline></video>
 
     <pre id="output"></pre>
+    <button id="flashlight">Turn Flashlight On</button>
 
     <script>
+        const flashlightButton = document.getElementById("flashlight");
+        let flashlightOn = false;
         const button = document.getElementById("start");
         const video = document.getElementById("camera");
         const output = document.getElementById("output");
@@ -144,17 +147,27 @@
             video.srcObject = stream;
             const track = stream.getVideoTracks()[0];
 
-const capabilities = track.getCapabilities();
+flashlightButton.onclick = async () => {
+    const capabilities = track.getCapabilities();
 
-if (capabilities.torch) {
+    if (!capabilities.torch) {
+        alert("Flashlight is not supported");
+        return;
+    }
+
+    flashlightOn = !flashlightOn;
+
     await track.applyConstraints({
         advanced: [
             {
-                torch: true
+                torch: flashlightOn
             }
         ]
     });
-}
+
+    flashlightButton.textContent =
+        flashlightOn ? "Turn Flashlight Off" : "Turn Flashlight On";
+};
 
             const canvas = document.createElement("canvas");
             canvas.width = 80;
