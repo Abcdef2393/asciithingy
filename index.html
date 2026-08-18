@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Camera ASCII</title>
+</head>
+
+<body>
+
+    <button id="start">Start Camera</button>
+
+    <video id="camera" autoplay playsinline></video>
+
+    <pre id="output"></pre>
+
+    <script>
+        const button = document.getElementById("start");
+        const video = document.getElementById("camera");
+        const output = document.getElementById("output");
+
+        button.onclick = async () => {
+            const stream = await navigator.mediaDevices.getUserMedia({
+                video: true
+            });
+
+            video.srcObject = stream;
+
+            const canvas = document.createElement("canvas");
+            canvas.width = 40;
+            canvas.height = 23;
+
+            const ctx = canvas.getContext("2d");
+
+            setInterval(() => {
+                ctx.drawImage(video, 0, 0, 40, 23);
+
+                const image = ctx.getImageData(0, 0, 40, 23);
+
+                let ascii = "";
+
+                for (let i = 0; i < image.data.length; i += 4) {
+                    const r = image.data[i];
+                    const g = image.data[i + 1];
+                    const b = image.data[i + 2];
+
+                    const brightness = (r + g + b) / 3;
+
+                    ascii += brightness < 128 ? "⬛️" : "⬜️";
+
+                    if ((i / 4 + 1) % 40 === 0) {
+                        ascii += "\n";
+                    }
+                }
+
+                output.textContent = ascii;
+            }, 200);
+        };
+    </script>
+
+</body>
+</html>
