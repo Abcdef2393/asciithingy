@@ -1,0 +1,43 @@
+const express = require("express");
+
+const app = express();
+
+app.use(express.text({ limit: "100kb" }));
+
+app.use(express.static("public"));
+
+const UPLOAD_TOKEN = process.env.UPLOAD_TOKEN;
+const ROBLOX_TOKEN = process.env.ROBLOX_TOKEN;
+
+let currentFrame = "";
+
+app.post("/upload", (req, res) => {
+    const token = req.headers["x-upload-token"];
+
+    if (token !== UPLOAD_TOKEN) {
+        return res.status(401).send("Unauthorized");
+    }
+
+    currentFrame = req.body;
+
+    console.log("Received frame:");
+    console.log(currentFrame);
+
+    res.send("OK");
+});
+
+app.get("/frame", (req, res) => {
+    const token = req.headers["x-roblox-token"];
+
+    if (token !== ROBLOX_TOKEN) {
+        return res.status(401).send("Unauthorized");
+    }
+
+    res.type("text").send(currentFrame);
+});
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
