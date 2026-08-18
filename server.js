@@ -67,22 +67,14 @@ app.get("/frame/:token", (req, res) => {
         return res.status(503).send("Phone not connected");
     }
 
-    if (!currentFrame) {
-        return res.status(503).send("No frame available");
-    }
-
     captureRequested = true;
+
     waitingForFrame = res;
 
     setTimeout(() => {
         if (waitingForFrame === res) {
             waitingForFrame = null;
-
-            if (currentFrame) {
-                res.send(currentFrame);
-            } else {
-                res.status(503).send("No frame available");
-            }
+            res.status(504).send("Camera timeout");
         }
     }, 5000);
 });
