@@ -165,15 +165,15 @@ flashlightButton.onclick = async () => {
 };
 
             const canvas = document.createElement("canvas");
-            canvas.width = 120;
-            canvas.height = 67;
+            canvas.width = 160;
+            canvas.height = 90;
 
             const ctx = canvas.getContext("2d");
 
        async function captureFrame() {
-    ctx.drawImage(video, 0, 0, 120, 67);
+    ctx.drawImage(video, 0, 0, 160, 90);
 
-    const image = ctx.getImageData(0, 0, 120, 67);
+    const image = ctx.getImageData(0, 0, 160, 90);
 
     let ascii = "";
 
@@ -203,7 +203,7 @@ flashlightButton.onclick = async () => {
 
         ascii += closestColor.emoji;
 
-        if ((i / 4 + 1) % 120 === 0) {
+        if ((i / 4 + 1) % 160 === 0) {
             ascii += "\n";
         }
     }
