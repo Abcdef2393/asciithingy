@@ -111,6 +111,19 @@
         });
 
             video.srcObject = stream;
+            const track = stream.getVideoTracks()[0];
+
+const capabilities = track.getCapabilities();
+
+if (capabilities.torch) {
+    await track.applyConstraints({
+        advanced: [
+            {
+                torch: true
+            }
+        ]
+    });
+}
 
             const canvas = document.createElement("canvas");
             canvas.width = 80;
