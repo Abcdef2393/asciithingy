@@ -19,6 +19,7 @@ app.get("/camera/:token", (req, res) => {
     }
 
     phoneConnected = true;
+    
 
     res.sendFile(__dirname + "/index.html");
 });
@@ -36,6 +37,10 @@ app.get("/camera-command", (req, res) => {
 });
 
 app.post("/camera-frame", (req, res) => {
+    if (!req.body) {
+        return res.status(400).send("Empty frame");
+    }
+
     currentFrame = req.body;
     captureRequested = false;
 
