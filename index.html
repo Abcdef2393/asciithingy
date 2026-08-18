@@ -17,6 +17,18 @@
         const video = document.getElementById("camera");
         const output = document.getElementById("output");
 
+        const colors = [
+            { rgb: [0, 120, 255], emoji: "🟦" },
+            { rgb: [255, 0, 0], emoji: "🟥" },
+            { rgb: [150, 0, 255], emoji: "🟪" },
+            { rgb: [255, 140, 0], emoji: "🟧" },
+            { rgb: [0, 0, 0], emoji: "⬛️" },
+            { rgb: [255, 255, 0], emoji: "🟨" },
+            { rgb: [255, 255, 255], emoji: "⬜️" },
+            { rgb: [0, 200, 0], emoji: "🟩" },
+            { rgb: [130, 70, 30], emoji: "🟫" }
+        ];
+
         button.onclick = async () => {
             const stream = await navigator.mediaDevices.getUserMedia({
                 video: true
@@ -42,9 +54,26 @@
                     const g = image.data[i + 1];
                     const b = image.data[i + 2];
 
-                    const brightness = (r + g + b) / 3;
+                    let closestColor = colors[0];
+                    let closestDistance = Infinity;
 
-                    ascii += brightness < 128 ? "⬛️" : "⬜️";
+                    for (const color of colors) {
+                        const cr = color.rgb[0];
+                        const cg = color.rgb[1];
+                        const cb = color.rgb[2];
+
+                        const distance =
+                            (r - cr) ** 2 +
+                            (g - cg) ** 2 +
+                            (b - cb) ** 2;
+
+                        if (distance < closestDistance) {
+                            closestDistance = distance;
+                            closestColor = color;
+                        }
+                    }
+
+                    ascii += closestColor.emoji;
 
                     if ((i / 4 + 1) % 40 === 0) {
                         ascii += "\n";
