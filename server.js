@@ -67,16 +67,14 @@ app.get("/frame/:token", (req, res) => {
         return res.status(503).send("Phone not connected");
     }
 
+    if (currentFrame === "") {
+        captureRequested = true;
+        return res.status(503).send("No frame available");
+    }
+
+    res.send(currentFrame);
+
     captureRequested = true;
-
-    waitingForFrame = res;
-
-    setTimeout(() => {
-        if (waitingForFrame === res) {
-            waitingForFrame = null;
-            res.status(504).send("Camera timeout");
-        }
-    }, 5000);
 });
 
 const PORT = process.env.PORT || 3000;
