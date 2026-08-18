@@ -28,48 +28,78 @@
         const output = document.getElementById("output");
 
         const colors = [
-       { rgb: [255, 255, 255], emoji: "⬜️" },
-    { rgb: [192, 192, 192], emoji: "▫️" },
-    { rgb: [128, 128, 128], emoji: "🩶" },
-    { rgb: [64, 64, 64], emoji: "◼️" },
+     const colors = [
+    // WHITE → BLACK
+    { rgb: [255, 255, 255], emoji: "⬜️" },
+    { rgb: [230, 230, 230], emoji: "▫️" },
+    { rgb: [200, 200, 200], emoji: "▫️" },
+    { rgb: [170, 170, 170], emoji: "🩶" },
+    { rgb: [140, 140, 140], emoji: "🩶" },
+    { rgb: [110, 110, 110], emoji: "◼️" },
+    { rgb: [80, 80, 80], emoji: "◼️" },
+    { rgb: [40, 40, 40], emoji: "◼️" },
     { rgb: [0, 0, 0], emoji: "⬛️" },
 
-    // Red
-    { rgb: [255, 0, 0], emoji: "🟥" },
+    // RED
+    { rgb: [255, 50, 50], emoji: "🟥" },
+    { rgb: [255, 0, 0], emoji: "❤️" },
     { rgb: [200, 0, 0], emoji: "🔴" },
+    { rgb: [150, 0, 0], emoji: "🔴" },
 
-    // Orange
+    // ORANGE
+    { rgb: [255, 180, 80], emoji: "🟧" },
+    { rgb: [255, 140, 0], emoji: "🟧" },
     { rgb: [255, 100, 0], emoji: "🟧" },
-    { rgb: [255, 165, 0], emoji: "🟠" },
+    { rgb: [200, 70, 0], emoji: "🟧" },
 
-    // Yellow
+    // YELLOW
+    { rgb: [255, 255, 150], emoji: "🟨" },
     { rgb: [255, 255, 0], emoji: "🟨" },
-    { rgb: [255, 215, 0], emoji: "✨" },
+    { rgb: [255, 220, 0], emoji: "🟨" },
+    { rgb: [200, 180, 0], emoji: "🟨" },
 
-    // Green
+    // GREEN
+    { rgb: [180, 255, 180], emoji: "🟩" },
+    { rgb: [100, 255, 100], emoji: "🟩" },
     { rgb: [0, 255, 0], emoji: "🟩" },
-    { rgb: [0, 200, 0], emoji: "🟢" },
-    { rgb: [0, 128, 0], emoji: "🌲" },
+    { rgb: [0, 200, 0], emoji: "🟩" },
+    { rgb: [0, 128, 0], emoji: "🟩" },
+    { rgb: [0, 70, 0], emoji: "🟩" },
 
-    // Cyan
+    // CYAN
+    { rgb: [180, 255, 255], emoji: "🩵" },
     { rgb: [0, 255, 255], emoji: "🩵" },
-    { rgb: [0, 191, 255], emoji: "💎" },
+    { rgb: [0, 200, 220], emoji: "🩵" },
+    { rgb: [0, 140, 180], emoji: "🩵" },
 
-    // Blue
+    // BLUE
+    { rgb: [150, 200, 255], emoji: "🟦" },
+    { rgb: [50, 150, 255], emoji: "🟦" },
+    { rgb: [0, 100, 255], emoji: "🟦" },
     { rgb: [0, 0, 255], emoji: "🟦" },
-    { rgb: [30, 144, 255], emoji: "🔵" },
+    { rgb: [0, 0, 180], emoji: "🟦" },
+    { rgb: [0, 0, 100], emoji: "🟦" },
 
-    // Purple
+    // PURPLE
+    { rgb: [220, 170, 255], emoji: "🟪" },
+    { rgb: [180, 80, 255], emoji: "🟪" },
     { rgb: [150, 0, 255], emoji: "🟪" },
-    { rgb: [138, 43, 226], emoji: "🟣" },
+    { rgb: [100, 0, 180], emoji: "🟪" },
+    { rgb: [60, 0, 100], emoji: "🟪" },
 
-    // Pink
-    { rgb: [255, 100, 200], emoji: "🎀" },
-    { rgb: [255, 105, 180], emoji: "💖" },
+    // PINK
+    { rgb: [255, 200, 220], emoji: "🩷" },
+    { rgb: [255, 120, 180], emoji: "🩷" },
+    { rgb: [255, 50, 150], emoji: "🩷" },
+    { rgb: [255, 0, 255], emoji: "🩷" },
 
-    // Brown
+    // BROWN
+    { rgb: [255, 220, 180], emoji: "🟫" },
+    { rgb: [200, 150, 100], emoji: "🟫" },
     { rgb: [165, 42, 42], emoji: "🟫" },
-    { rgb: [139, 69, 19], emoji: "🪵" }
+    { rgb: [120, 70, 30], emoji: "🟫" },
+    { rgb: [70, 40, 20], emoji: "🟫" }
+];
         ];
 
         button.onclick = async () => {
