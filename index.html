@@ -141,46 +141,63 @@
 
             const ctx = canvas.getContext("2d");
 
-            setInterval(() => {
-                ctx.drawImage(video, 0, 0, 80, 45);
+       async function captureFrame() {
+    ctx.drawImage(video, 0, 0, 80, 45);
 
-                const image = ctx.getImageData(0, 0, 80, 45);
+    const image = ctx.getImageData(0, 0, 80, 45);
 
-                let ascii = "";
+    let ascii = "";
 
-                for (let i = 0; i < image.data.length; i += 4) {
-                    const r = image.data[i];
-                    const g = image.data[i + 1];
-                    const b = image.data[i + 2];
+    for (let i = 0; i < image.data.length; i += 4) {
+        const r = image.data[i];
+        const g = image.data[i + 1];
+        const b = image.data[i + 2];
 
-                    let closestColor = colors[0];
-                    let closestDistance = Infinity;
+        let closestColor = colors[0];
+        let closestDistance = Infinity;
 
-                    for (const color of colors) {
-                        const cr = color.rgb[0];
-                        const cg = color.rgb[1];
-                        const cb = color.rgb[2];
+        for (const color of colors) {
+            const cr = color.rgb[0];
+            const cg = color.rgb[1];
+            const cb = color.rgb[2];
 
-                        const distance =
-                            (r - cr) ** 2 +
-                            (g - cg) ** 2 +
-                            (b - cb) ** 2;
+            const distance =
+                (r - cr) ** 2 +
+                (g - cg) ** 2 +
+                (b - cb) ** 2;
 
-                        if (distance < closestDistance) {
-                            closestDistance = distance;
-                            closestColor = color;
-                        }
-                    }
+            if (distance < closestDistance) {
+                closestDistance = distance;
+                closestColor = color;
+            }
+        }
 
-                    ascii += closestColor.emoji;
+        ascii += closestColor.emoji;
 
-                    if ((i / 4 + 1) % 80 === 0) {
-                        ascii += "\n";
-                    }
-                }
+        if ((i / 4 + 1) % 80 === 0) {
+            ascii += "\n";
+        }
+    }
 
-                output.textContent = ascii;
-            }, 200);
+    output.textContent = ascii;
+
+    await fetch("/camera-frame", {
+        method: "POST",
+        headers: {
+            "Content-Type": "text/plain"
+        },
+        body: ascii
+    });
+}
+
+        setInterval(async () => {
+    const response = await fetch("/camera-command");
+    const command = await response.text();
+
+    if (command === "CAPTURE") {
+        captureFrame();
+    }
+}, 100);
         };
     </script>
 
