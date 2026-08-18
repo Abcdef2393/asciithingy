@@ -20,7 +20,7 @@ app.get("/camera/:token", (req, res) => {
 
     phoneConnected = true;
 
-    res.sendFile(__dirname + "/public/camera.html");
+    res.sendFile(__dirname + "/public/index.html");
 });
 
 app.get("/camera-command", (req, res) => {
