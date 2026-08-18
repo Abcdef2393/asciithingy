@@ -37,12 +37,18 @@ app.get("/camera-command", (req, res) => {
 });
 
 app.post("/camera-frame", (req, res) => {
-    if (!req.body) {
+    console.log("Received frame length:", req.body.length);
+    console.log("Is empty:", req.body.trim() === "");
+
+    if (!req.body || req.body.trim() === "") {
+        console.log("REJECTED EMPTY FRAME");
         return res.status(400).send("Empty frame");
     }
 
     currentFrame = req.body;
     captureRequested = false;
+
+    console.log("Stored frame length:", currentFrame.length);
 
     if (waitingForFrame) {
         waitingForFrame.send(currentFrame);
@@ -61,14 +67,22 @@ app.get("/frame/:token", (req, res) => {
         return res.status(503).send("Phone not connected");
     }
 
-    captureRequested = true;
+    if (!currentFrame) {
+        return res.status(503).send("No frame available");
+    }
 
+    captureRequested = true;
     waitingForFrame = res;
 
     setTimeout(() => {
         if (waitingForFrame === res) {
             waitingForFrame = null;
-            res.status(504).send("Camera timeout");
+
+            if (currentFrame) {
+                res.send(currentFrame);
+            } else {
+                res.status(503).send("No frame available");
+            }
         }
     }, 5000);
 });
