@@ -3,15 +3,15 @@
 <head>
     <title>Camera ASCII</title>
     <style>
-        /*
     #camera {
         display: none;
     }
-        */
+    /*
     #camera {
         width: 640px;
         display: block;
     } 
+    */
     #output {
         font-size: 4px;
         line-height: 4px;
@@ -134,18 +134,18 @@
 
         button.onclick = async () => {
             alert("Button works");
-            
+            /*   
             const stream = navigator.mediaDevices.getDisplayMedia({
                 video: true
             });
             console.log("test31");
-         /*   
+            */
+         
         const stream = await navigator.mediaDevices.getUserMedia({
             video: {
                 facingMode: "environment"
             }
         });
-  */
 
             video.srcObject = stream;
             const track = stream.getVideoTracks()[0];
