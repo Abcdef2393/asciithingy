@@ -128,18 +128,18 @@
 
         button.onclick = async () => {
             alert("Button works");
-            /*
+            
             const stream = await navigator.mediaDevices.getDisplayMedia({
                 video: true
             });
-            */
             
+         /*   
         const stream = await navigator.mediaDevices.getUserMedia({
             video: {
                 facingMode: "environment"
             }
         });
-  
+  */
 
             video.srcObject = stream;
             const track = stream.getVideoTracks()[0];
